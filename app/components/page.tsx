@@ -3,7 +3,7 @@ import { PostItem } from "@/components/post-item";
 import { QueryPagination } from "@/components/query-pagination";
 import { Tag } from "@/components/tag";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getAllTags, sortPosts, sortTagsByCount } from "@/lib/utils";
+import { sortTagsByCount } from "@/lib/utils";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -21,16 +21,12 @@ interface BlogPageProps {
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const currentPage = Number(searchParams?.page) || 1;
-  const sortedPosts = sortPosts(componentsPosts.filter((post) => post.published));
-  const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
+  const totalPages = Math.ceil(componentsPosts.length / POSTS_PER_PAGE);
 
-  const displayPosts = sortedPosts.slice(
+  const displayPosts = componentsPosts.slice(
     POSTS_PER_PAGE * (currentPage - 1),
     POSTS_PER_PAGE * currentPage
   );
-
-  const tags = getAllTags(componentsPosts);
-  const sortedTags = sortTagsByCount(tags);
 
   return (
     <div className="container max-w-4xl py-6 lg:py-10">
@@ -48,15 +44,12 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           {displayPosts?.length > 0 ? (
             <ul className="flex flex-col">
               {displayPosts.map((post) => {
-                const { slug, date, title, description, tags } = post;
+                const { slug, description } = post;
                 return (
                   <li key={slug}>
                     <PostItem
                       slug={slug}
-                      date={date}
-                      title={title}
                       description={description}
-                      tags={tags}
                     />
                   </li>
                 );
@@ -74,11 +67,6 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           <CardHeader>
             <CardTitle>Tags</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-wrap gap-2">
-            {sortedTags?.map((tag) => (
-              <Tag tag={tag} key={tag} count={tags[tag]} />
-            ))}
-          </CardContent>
         </Card>
       </div>
     </div>

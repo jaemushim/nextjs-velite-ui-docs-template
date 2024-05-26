@@ -1,9 +1,4 @@
-import { buttonVariants } from "@/components/ui/button";
-import { siteConfig } from "@/config/site";
-import { cn, sortPosts } from "@/lib/utils";
-import Link from "next/link";
-import { PostItem } from "@/components/post-item";
-
+``
 export default function Home() {
   return (
     <>
