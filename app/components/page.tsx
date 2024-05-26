@@ -1,4 +1,4 @@
-import { posts } from "#site/content";
+import { componentsPosts } from "#site/content";
 import { PostItem } from "@/components/post-item";
 import { QueryPagination } from "@/components/query-pagination";
 import { Tag } from "@/components/tag";
@@ -21,7 +21,7 @@ interface BlogPageProps {
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const currentPage = Number(searchParams?.page) || 1;
-  const sortedPosts = sortPosts(posts.filter((post) => post.published));
+  const sortedPosts = sortPosts(componentsPosts.filter((post) => post.published));
   const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
 
   const displayPosts = sortedPosts.slice(
@@ -29,7 +29,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     POSTS_PER_PAGE * currentPage
   );
 
-  const tags = getAllTags(posts);
+  const tags = getAllTags(componentsPosts);
   const sortedTags = sortTagsByCount(tags);
 
   return (
