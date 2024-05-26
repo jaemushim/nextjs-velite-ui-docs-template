@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { SiteHeader } from "@/components/site-header";
 import { Providers } from "@/components/providers";
 import { siteConfig } from "@/config/site";
-import { SiteFooter } from "@/components/site-footer";
+import {SiteAside} from "@/components/site-aside";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-pt-[3.5rem]">
+    <html lang="en" className="scroll-pt-[3.5rem] light">
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
@@ -36,10 +36,12 @@ export default function RootLayout({
         )}
       >
         <Providers>
-          <div className="relative flex min-h-dvh flex-col bg-background">
+          <div className="relative min-h-dvh flex-col bg-background">
             <SiteHeader />
-            <main className="flex-1">{children}</main>
-            <SiteFooter />
+            <div className="flex container max-w-screen-xl">
+              <SiteAside />
+              <main className="flex-1">{children}</main>
+            </div>
           </div>
         </Providers>
       </body>

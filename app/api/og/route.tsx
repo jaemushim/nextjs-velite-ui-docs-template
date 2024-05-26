@@ -31,15 +31,15 @@ export async function GET(req: NextRequest) {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <path d="M4 11a9 9 0 0 1 9 9" />
               <path d="M4 4a16 16 0 0 1 16 16" />
               <circle cx="5" cy="19" r="1" />
             </svg>
-            <p tw="ml-2 font-bold text-2xl">JollyBlog</p>
+            <p tw="ml-2 font-bold text-2xl">ui-docs</p>
           </div>
           <div tw="flex flex-col flex-1 py-10">
             <div tw="flex text-xl uppercase font-bold tracking-tight font-normal">
