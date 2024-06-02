@@ -27,6 +27,7 @@
     "remark": "^15.0.1",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
+    "tm-themes": "^1.4.3",
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
