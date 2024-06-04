@@ -6,8 +6,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
+} from "@/components/elements/dropdown-menu";
+import { Button } from "@/components/elements/button";
 import { Moon, Sun } from "lucide-react";
 
 export function ModeToggle() {

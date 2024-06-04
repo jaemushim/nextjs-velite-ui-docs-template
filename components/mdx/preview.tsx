@@ -1,11 +1,12 @@
 import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
+import {HTMLAttributes, ReactNode} from "react";
+import {HtmlProps} from "next/dist/shared/lib/html-context.shared-runtime";
 
-interface CalloutProps {
+interface Preview extends HTMLAttributes<HTMLDivElement> {
     children?: ReactNode;
 }
 
-export function Preview({ children, ...props }: CalloutProps) {
+export function Preview({ children,className, ...props }: Preview) {
     return (
         <div
             style={{
@@ -15,7 +16,7 @@ export function Preview({ children, ...props }: CalloutProps) {
                 borderRadius: "8px",
                 border: "1px solid oklch(0.924169 0.00108 197.138)",
             }}
-            className={cn("p-5 preview")}
+            className={cn(`p-5 preview`, className)}
             {...props}
         >
             <div>{children}</div>

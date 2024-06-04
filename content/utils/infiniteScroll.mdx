@@ -1,0 +1,71 @@
+React Query useInfiniteQuery 활용 <br/>
+무료 오픈소스 api 사용 - [Platzi Fake Store API](https://fakeapi.platzi.com/)
+
+## Preview
+<InfiniteScrollExample />
+
+```jsx
+const Example = () => {
+    const PAGE_SIZE = 10;
+
+    const fetchMore = async (page: number) => {
+        const response: any = await fetch(
+          `https://api.escuelajs.co/api/v1/products?offset=${(page - 1) * PAGE_SIZE}&limit=${PAGE_SIZE}`,
+        );
+        const data = await response.json();
+        data["nextPage"] = data.length < PAGE_SIZE ? null : page + 1;
+
+        return data;
+    };
+
+    const { data, isFetchingNextPage, hasNextPage, observerRef } =
+        useInfiniteScroll({
+            queryKey: ["infinite-sample"],
+            fetchMore: fetchMore,
+        });
+
+    return (
+        <div>
+            {data?.pages?.map((group, index_group) => {
+                return (
+                    <div className="grid grid-cols-2 gap-5 mb-5" key={index_group}>
+                      {group?.map((data: any, index: number) => {
+                        return (
+                          <div key={`${index}-${data?.id || 0}`}>
+                            <Card>
+                              <CardHeader>
+                                <CardTitle className="line-clamp-1">
+                                  {data.title}
+                                </CardTitle>
+                                <CardDescription className="line-clamp-3">
+                                  {data.description}
+                                </CardDescription>
+                              </CardHeader>
+                              <CardContent>{data.creationAt.slice(0, 10)}</CardContent>
+                              <CardFooter className="flex justify-end">
+                                <Button>Deploy</Button>
+                              </CardFooter>
+                            </Card>
+                          </div>
+                        );
+                      })}
+                    </div>
+                );
+            })}
+
+            <div className={"loader"} ref={observerRef}>
+              {isFetchingNextPage && hasNextPage ? (
+                <div className="flex items-center justify-center mt-5"
+                >
+                  로딩 아이콘
+                </div>
+              ) : (
+                데이터 없음
+              )}
+            </div>
+        </div>
+    )
+}
+```
+## API
+<APITable data={[{name:'queryKey', type:'string[]', default:''}, {name:'fetchMore', type:'function', default:''}]} />

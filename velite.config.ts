@@ -22,6 +22,19 @@ const componentsPosts = defineCollection({
     .transform(computedFields),
 });
 
+const utilsPosts = defineCollection({
+  name: "UtilPosts",
+  pattern: "utils/**/*.mdx",
+  schema: s
+      .object({
+        slug: s.path(),
+        description: s.string().max(999).optional(),
+        body: s.mdx(),
+        raw: s.raw(),
+      })
+      .transform(computedFields),
+});
+
 export default defineConfig({
   root: "content",
   output: {
@@ -31,7 +44,7 @@ export default defineConfig({
     name: "[name]-[hash:6].[ext]",
     clean: true,
   },
-  collections: { componentsPosts },
+  collections: { componentsPosts, utilsPosts },
   mdx: {
     rehypePlugins: [
       rehypeSlug,
