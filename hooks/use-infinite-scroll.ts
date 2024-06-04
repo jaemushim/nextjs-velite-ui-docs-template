@@ -33,7 +33,7 @@ const useInfiniteScroll = ({ queryKey, fetchMore }: useInfiniteScrollProps) => {
     (entries: any) => {
       const [target] = entries;
       if (target.isIntersecting) {
-        query.fetchNextPage();
+        fetchNextPage();
       }
     },
     [fetchNextPage],

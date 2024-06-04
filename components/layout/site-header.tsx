@@ -11,7 +11,7 @@ export async function SiteHeader() {
   );
 
   return (
-    <header className="z-10 sticky top-0 w-full border-b backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="z-10 sticky top-0 w-full h-14 border-b backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-[1400px] items-center">
         <MainNav />
         <Search file={file} />
