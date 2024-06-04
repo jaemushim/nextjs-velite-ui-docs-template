@@ -6,9 +6,8 @@ React Query useInfiniteQuery 활용 <br/>
 
 ```jsx
 const Example = () => {
-    const PAGE_SIZE = 10;
-
     const fetchMore = async (page: number) => {
+        const PAGE_SIZE = 10;
         const response: any = await fetch(
           `https://api.escuelajs.co/api/v1/products?offset=${(page - 1) * PAGE_SIZE}&limit=${PAGE_SIZE}`,
         );
@@ -67,5 +66,51 @@ const Example = () => {
     )
 }
 ```
+
+## use-infinite-scroll.ts
+
+```jsx
+const useInfiniteScroll = ({ queryKey, fetchMore }: useInfiniteScrollProps) => {
+  const observerRef = useRef(null);
+
+  const query = useInfiniteQuery(
+    queryKey,
+    ({ pageParam = 1 }) => fetchMore(pageParam),
+    {
+      refetchOnWindowFocus: false,
+      keepPreviousData: false,
+      getNextPageParam: (lastpage, allPages) => {
+        if (!lastpage?.nextPage) return undefined;
+
+        return allPages.length + 1;
+      },
+    },
+  );
+  const { fetchNextPage, hasNextPage } = query;
+
+  const handleObserver = useCallback(
+    (entries: any) => {
+      const [target] = entries;
+      if (target.isIntersecting) {
+        fetchNextPage();
+      }
+    },
+    [fetchNextPage],
+  );
+  useEffect(() => {
+    const element = observerRef.current;
+    const option = { threshold: 0 };
+
+    const observer = new IntersectionObserver(handleObserver, option);
+    if (element) {
+      observer.observe(element);
+      return () => observer.unobserve(element);
+    }
+  }, [fetchNextPage, hasNextPage, handleObserver]);
+
+  return { observerRef, ...query };
+};
+```
+
 ## API
 <APITable data={[{name:'queryKey', type:'string[]', default:''}, {name:'fetchMore', type:'function', default:''}]} />
