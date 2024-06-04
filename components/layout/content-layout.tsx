@@ -13,17 +13,19 @@ const ContentLayout = async ({ params, posts }: PostPageProps) => {
   const toc = await getTableOfContents(post?.raw || "");
 
   return (
-    <article className="relative flex py-6 lg:gap-16 lg:py-8">
-      <div className="w-full prose">
-        <h1 className="mb-2 capitalize">{title}</h1>
-        <MDXContent code={post?.body || ""} />
-      </div>
+    <>
+      <article className="relative flex w-[800px] py-6 lg:gap-16 lg:py-8 mb-20">
+        <div className="w-full prose">
+          <h1 className="mb-2 capitalize">{title}</h1>
+          <MDXContent code={post?.body || ""} />
+        </div>
+      </article>
       <div>
         <aside className="sticky top-16 min-w-[200px] -mt-10 pt-4">
           <DashboardTableOfContents toc={toc} />
         </aside>
       </div>
-    </article>
+    </>
   );
 };
 

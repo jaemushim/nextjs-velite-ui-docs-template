@@ -37,7 +37,7 @@ export default function RootLayout({
             <SiteHeader />
             <div className="flex container max-w-screen-xl">
               <SiteAside />
-              <main className="w-[70%]">{children}</main>
+              <main className="flex gap-12">{children}</main>
             </div>
           </div>
         </Providers>

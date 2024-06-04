@@ -11,7 +11,7 @@ export function SiteAside() {
   const currentPost = pathname.split("/").pop();
 
   return (
-    <div className="w-1/5">
+    <div className="min-w-[200px]">
       <aside className="sticky top-14 w-full py-6 pr-6 lg:py-8">
         <div className="mb-8">
           <p className="font-semibold text-lg mb-1">Components</p>
